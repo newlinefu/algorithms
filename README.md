@@ -9,8 +9,6 @@
 -   Choice [choice.js](https://github.com/newlinefu/algorithms/tree/master/arrays/sorts/choice.js)
 -   Quick [quick.js](https://github.com/newlinefu/algorithms/tree/master/arrays/sorts/quick.js)
 
-### Search
-
 <hr />
 
 ## Graphs

@@ -19,6 +19,10 @@
 
 <hr />
 
-## Trees
+## Structures
+
+<hr />
+
+## Other Algs
 
 <hr />

@@ -11,6 +11,15 @@
 
 <hr />
 
+## Structures
+
+- Stack [stack.js](https://github.com/newlinefu/algorithms/tree/master/structures/stack.js)
+- Linked List [linked-list.js](https://github.com/newlinefu/algorithms/tree/master/structures/linked-list.js)
+- Binary tree
+- Graph
+
+<hr />
+
 ## Graphs
 
 <hr />

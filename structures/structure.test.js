@@ -1,6 +1,7 @@
 const { Stack } = require('./stack')
 const { LinkedList } = require('./linked-list')
 const { BinaryTree } = require('./binary-tree')
+const { Graph } = require('./graph')
 
 // ---- STACK ---- //
 test('Initializing stack', () => {
@@ -96,9 +97,9 @@ test('Tree addition test (full right)', () => {
     tree.add(1)
     tree.add(2)
     tree.add(3)
-    const array = [];
+    const array = []
     tree.widthDetour((value) => array.push(value))
-    expect(array).toEqual([1,2,3])
+    expect(array).toEqual([1, 2, 3])
 })
 
 test('Tree addition test (full left)', () => {
@@ -109,9 +110,9 @@ test('Tree addition test (full left)', () => {
     tree.add(3)
     tree.add(2)
     tree.add(1)
-    const array = [];
+    const array = []
     tree.widthDetour((value) => array.push(value))
-    expect(array).toEqual([3,2,1])
+    expect(array).toEqual([3, 2, 1])
 })
 
 test('Tree addition test (balanced)', () => {
@@ -126,7 +127,7 @@ test('Tree addition test (balanced)', () => {
     tree.add(20)
     tree.add(4)
     tree.add(1)
-    const array = [];
+    const array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 13, 2, 20, 11, 4, 1])
 })
@@ -136,7 +137,7 @@ test('Tree removing head test', () => {
     const tree = new BinaryTree()
     tree.add(10)
     tree.remove(10)
-    const array = [];
+    const array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([])
 })
@@ -149,7 +150,7 @@ test('Tree removing without child test', () => {
     tree.add(13)
     tree.add(9)
     tree.remove(9)
-    const array = [];
+    const array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 13])
 })
@@ -163,11 +164,11 @@ test('Tree removing with left child test', () => {
     tree.add(3)
     tree.add(20)
     tree.add(1)
-    let array = [];
+    let array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 20, 3, 1])
     tree.remove(3)
-    array = [];
+    array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 20, 1])
 })
@@ -181,11 +182,11 @@ test('Tree removing with right child test', () => {
     tree.add(3)
     tree.add(20)
     tree.add(30)
-    let array = [];
+    let array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 20, 3, 30])
     tree.remove(20)
-    array = [];
+    array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 30, 3])
 })
@@ -200,11 +201,11 @@ test('Tree removing with both of child test (right child is simple)', () => {
     tree.add(20)
     tree.add(30)
     tree.add(15)
-    let array = [];
+    let array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 20, 3, 30, 15])
     tree.remove(20)
-    array = [];
+    array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 30, 3, 15])
 })
@@ -224,7 +225,7 @@ test('Tree removing with both of child test (right child has child)', () => {
     tree.add(18)
     tree.add(23)
     tree.add(32)
-    let array = [];
+    let array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 20, 3, 30, 15, 32, 23, 18, 13])
     tree.remove(20)
@@ -232,7 +233,7 @@ test('Tree removing with both of child test (right child has child)', () => {
     //  (3)        (23)
     //        (15)      (30)
     //     (13) (18)        (32)
-    array = [];
+    array = []
     tree.widthDetour((value) => array.push(value))
     expect(array).toEqual([10, 23, 3, 30, 15, 32, 18, 13])
 })
@@ -252,7 +253,120 @@ test('Tree deep detour test', () => {
     tree.add(18)
     tree.add(23)
     tree.add(32)
-    const array = [];
+    const array = []
     tree.deepDetour((value) => array.push(value))
     expect(array).toEqual([10, 3, 20, 15, 13, 18, 30, 23, 32])
+})
+
+// ---- GRAPH ---- //
+
+test('Graph insertion test', () => {
+    //            (A)    -4-       (E)
+    //       /*13*  *7*\     /*2*     *10*\
+    //
+    //      (B)   -5-     (C)     -10-     (D)
+    const vertices = ['A', 'B', 'C', 'D', 'E']
+    const edges = [
+        ['A', 'B', 13],
+        ['A', 'C', 7],
+        ['C', 'D', 10],
+        ['B', 'C', 5],
+        ['E', 'C', 2],
+        ['E', 'D', 10],
+    ]
+    const graph = new Graph(vertices, edges)
+    const objectMapping = graph.objectMap()
+    expect(objectMapping).toEqual({
+        A: ['B', 'C'],
+        B: ['C'],
+        C: ['D'],
+        D: [],
+        E: ['C', 'D'],
+    })
+})
+
+test('Graph dfs test', () => {
+    //            (A)    -4-       (E)
+    //       /*13*  *7*\     /*2*     *10*\
+    //
+    //      (B)   -5-     (C)     -10-     (D)
+    const vertices = ['A', 'B', 'C', 'D', 'E']
+    const edges = [
+        ['A', 'B', 13],
+        ['A', 'C', 7],
+        ['C', 'D', 10],
+        ['B', 'C', 5],
+        ['E', 'C', 2],
+        ['E', 'D', 10],
+    ]
+    const graph = new Graph(vertices, edges)
+    const objectMapping = graph.objectMap()
+    expect(objectMapping).toEqual({
+        A: ['B', 'C'],
+        B: ['C'],
+        C: ['D'],
+        D: [],
+        E: ['C', 'D'],
+    })
+    expect(graph.dfs('A')).toEqual(true)
+    expect(graph.dfs('D')).toEqual(true)
+    expect(graph.dfs('Q')).toEqual(false)
+})
+
+test('Graph dfs test', () => {
+    //            (A)    -4-       (E)
+    //       /*13*  *7*\     /*2*     *10*\
+    //
+    //      (B)   -5-     (C)     -10-     (D)
+    const vertices = ['A', 'B', 'C', 'D', 'E']
+    const edges = [
+        ['A', 'B', 13],
+        ['A', 'C', 7],
+        ['C', 'D', 10],
+        ['B', 'C', 5],
+        ['E', 'C', 2],
+        ['E', 'D', 10],
+    ]
+    const graph = new Graph(vertices, edges)
+    const objectMapping = graph.objectMap()
+    expect(objectMapping).toEqual({
+        A: ['B', 'C'],
+        B: ['C'],
+        C: ['D'],
+        D: [],
+        E: ['C', 'D'],
+    })
+    expect(graph.bfs('A', 'A')).toEqual(true)
+    expect(graph.bfs('A', 'D')).toEqual(true)
+    expect(graph.bfs('A', 'Q')).toEqual(false)
+})
+
+
+test('Graph dijkstra test', () => {
+    //            (A)    -4-       (E)
+    //       /*13*  *7*\     /*2*     *10*\
+    //
+    //      (B)   -5-     (C)     -10-     (D)
+    const vertices = ['A', 'B', 'C', 'D', 'E']
+    const edges = [
+        ['A', 'B', 13],
+        ['A', 'C', 7],
+        ['C', 'D', 10],
+        ['B', 'C', 5],
+        ['E', 'C', 2],
+        ['E', 'D', 10],
+        ['A', 'E', 4],
+    ]
+    const graph = new Graph(vertices, edges)
+    const objectMapping = graph.objectMap()
+    expect(objectMapping).toEqual({
+        A: ['B', 'C', 'E'],
+        B: ['C'],
+        C: ['D'],
+        D: [],
+        E: ['C', 'D'],
+    })
+    const distancesToA = graph.dijkstra('A')
+    expect(distancesToA.C).toEqual(6)
+    expect(distancesToA.D).toEqual(14)
 })

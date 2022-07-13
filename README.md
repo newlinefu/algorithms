@@ -15,20 +15,8 @@
 
 - Stack [stack.js](https://github.com/newlinefu/algorithms/tree/master/structures/stack.js)
 - Linked List [linked-list.js](https://github.com/newlinefu/algorithms/tree/master/structures/linked-list.js)
-- Binary tree
-- Graph
-
-<hr />
-
-## Graphs
-
-<hr />
-
-## Trees
-
-<hr />
-
-## Structures
+- Binary tree [binary-tree.js](https://github.com/newlinefu/algorithms/tree/master/structures/binary-tree.js)
+- Graph [graph.js](https://github.com/newlinefu/algorithms/tree/master/structures/graph.js)
 
 <hr />
 

@@ -56,10 +56,6 @@ class BinaryTree {
         }
 
         if (node.child.left && !node.child.right) {
-            if (parent === null) {
-                this.root = node.child.left
-                return
-            }
             if (isLeftNode) {
                 parent.child.left = node.child.left
             } else {
@@ -69,10 +65,6 @@ class BinaryTree {
         }
 
         if (!node.child.left && node.child.right) {
-            if (parent === null) {
-                this.root = node.child.right
-                return
-            }
             if (isLeftNode) {
                 parent.child.left = node.child.right
             } else {
